@@ -12,7 +12,7 @@ select
     sum(session_partition_sum_engagement_time_msec) as sum_engaged_time_msec
     {% if var('conversion_events', false) %}
         {% for ce in var('conversion_events',[]) %}
-            , sum({{ce}}_count) as count_{{ce}}
+            , sum({{ ce | replace('-', '_') }}_count) as count_{{ ce | replace('-', '_') }}
         {% endfor %}
     {% endif %}
 from {{ref('fct_ga4__sessions_daily')}}

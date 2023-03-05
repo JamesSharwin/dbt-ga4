@@ -17,7 +17,7 @@ with event_counts as (
         session_partition_key,
         min(event_date_dt) as session_partition_date -- The date of this partition, not necessarily the session start date given that sessions can span multiple days
         {% for ce in var('conversion_events',[]) %}
-        , countif(event_name = '{{ce}}') as {{ce}}_count
+        , countif(event_name = '{{ce}}') as {{ ce  | replace('-', '_') }}_count
         {% endfor %}
     from {{ref('stg_ga4__events')}}
     group by 1,2
