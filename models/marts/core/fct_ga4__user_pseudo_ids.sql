@@ -10,7 +10,7 @@ select
     count(distinct session_key)  as count_sessions
     {% if var('conversion_events', false) %}
         {% for ce in var('conversion_events',[]) %}
-            , sum(count_{{ ce | replace('-', '_') }}) as count_{{ ce | replace('-', '_')}}
+            , sum({{ ce | replace('-', '_') }}) as count_{{ ce | replace('-', '_')}}
         {% endfor %}
     {% endif %}
 from {{ref('fct_ga4__sessions')}}
